@@ -70,16 +70,23 @@
                         <tr style="border-bottom: 1px solid #e5e7eb;">
                             <td style="padding: 12px; border: 1px solid #e5e7eb;">{{ $b->kategori_id }}</td>
                             
-                            <!-- INI BAGIAN YANG DIUBAH UNTUK SOAL A1 -->
-                            <td style="padding: 12px; border: 1px solid #e5e7eb; font-weight: 500;">{!! $b->judul !!}</td>
+                            <!-- INI BAGIAN YANG DIUBAH UNTUK SOAL 2 -->
+                            <td style="padding: 12px; border: 1px solid #e5e7eb; font-weight: 500;">{{ $b->judul }}</td>
                             
                             <td style="padding: 12px; border: 1px solid #e5e7eb;">{{ $b->penulis }}</td>
                             <td style="padding: 12px; border: 1px solid #e5e7eb;">{{ $b->tahun_terbit }}</td>
                             <td style="padding: 12px; border: 1px solid #e5e7eb; text-align: center;">
                                 <button data-aksi="detail" data-id="{{ $b->id }}" style="background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-right: 4px;">Detail</button>
+                                
                                 @can('kelola data buku')
                                     <button data-aksi="ubah" data-id="{{ $b->id }}" style="background: #f59e0b; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-right: 4px;">Ubah</button>
-                                    <button data-aksi="hapus" data-id="{{ $b->id }}" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Hapus</button>
+                                    
+                                    <!-- UBAH BAGIAN INI UNTUK MENAMBAL CELAH A3 (CSRF) -->
+                                    <form action="{{ route('buku.destroy', $b->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Yakin ingin menghapus buku ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Hapus</button>
+                                    </form>
                                 @endcan
                             </td>
                         </tr>

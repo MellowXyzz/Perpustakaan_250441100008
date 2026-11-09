@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/buku-cari', [BukuController::class, 'cari']);
 
     //rute a3
-    Route::get('/buku/{buku}/hapus', [App\Http\Controllers\BukuController::class, 'destroy'])->middleware('auth');
+    //Route::get('/buku/{buku}/hapus', [App\Http\Controllers\BukuController::class, 'destroy'])->middleware('auth');
 
     //rute a4
     //Route::get('/riwayat/{id}', [BukuController::class, 'riwayatPeminjaman'])->name('riwayat.saya');

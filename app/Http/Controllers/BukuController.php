@@ -122,8 +122,8 @@ class BukuController extends Controller
         // Membaca query string 'judul'
         $judul = $request->query('judul');
         
-        // CELAH A2: Menggabungkan variabel langsung ke string SQL tanpa validasi/binding
-        $buku = \Illuminate\Support\Facades\DB::select("SELECT * FROM bukus WHERE judul = '$judul'");
+        // PERBAIKAN A2: Menggunakan binding (?) agar input aman dari SQL Injection
+    $buku = \Illuminate\Support\Facades\DB::select('SELECT * FROM bukus WHERE judul = ?', [$judul]);
         
         // Mengembalikan hasil sebagai JSON
         return response()->json($buku);
