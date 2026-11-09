@@ -47,21 +47,18 @@ Route::middleware(['auth'])->group(function () {
     // rute a2
     Route::get('/buku-cari', [BukuController::class, 'cari']);
 
-    //rute a3
-    //Route::get('/buku/{buku}/hapus', [App\Http\Controllers\BukuController::class, 'destroy'])->middleware('auth');
-
-    //rute a4
-    //Route::get('/riwayat/{id}', [BukuController::class, 'riwayatPeminjaman'])->name('riwayat.saya');
-
     // Rute ajukan pinjam
     Route::post('/pinjam/{id}', [BukuController::class, 'storePinjam'])->name('buku.pinjam');
 
-    // Admin & Petugas (Kelola Data Buku: Simpan, Ubah, Hapus)
-    Route::middleware(['permission:kelola data buku'])->group(function () {
+   
+    // PERUBAHAN UNTUK SOAL 3
+    // =========================================================================
+    Route::middleware(['can:kelola-buku'])->group(function () {
         Route::post('/buku', [BukuController::class, 'store']);
         Route::put('/buku/{buku}', [BukuController::class, 'update']);
-        Route::delete('/buku/{buku}', [BukuController::class, 'destroy']);
+        Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])->name('buku.destroy');
     });
+    // =========================================================================
 
     // --- KHUSUS ADMIN ---
     Route::middleware(['role:Admin'])->group(function () {
@@ -75,7 +72,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/pengguna', PenggunaController::class);
 
         // Rute Kelola Peminjaman Admin
-       // Rute Kelola Peminjaman Admin
         Route::get('/admin/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman.index');
         Route::get('/admin/peminjaman/tambah', [PeminjamanController::class, 'create'])->name('admin.peminjaman.create');
         Route::post('/admin/peminjaman', [PeminjamanController::class, 'store'])->name('admin.peminjaman.store');
@@ -90,20 +86,14 @@ Route::middleware(['auth'])->group(function () {
         // Petugas bisa melihat laporan dan mengelola peminjaman/pengembalian
         Route::get('/petugas/laporan', [PetugasController::class, 'laporan'])->name('petugas.laporan');
         
-        // Memanfaatkan PeminjamanController yang sudah ada untuk kelola pinjam & pengembalian
-       // Rute Kelola Peminjaman Petugas
+        // Rute Kelola Peminjaman Petugas
         Route::get('/petugas/peminjaman', [PeminjamanController::class, 'index'])->name('petugas.peminjaman.index');
         Route::get('/petugas/peminjaman/tambah', [PeminjamanController::class, 'create'])->name('petugas.peminjaman.create');
         Route::post('/petugas/peminjaman', [PeminjamanController::class, 'store'])->name('petugas.peminjaman.store');
         Route::put('/petugas/peminjaman/{id}', [PeminjamanController::class, 'updateStatus'])->name('petugas.peminjaman.update');
     });
 
-    // --- ADMIN & PETUGAS (Kelola Data Buku) ---
-    Route::middleware(['permission:kelola data buku'])->group(function () {
-        Route::post('/buku', [BukuController::class, 'store']);
-        Route::put('/buku/{buku}', [BukuController::class, 'update']);
-        Route::delete('/buku/{buku}', [BukuController::class, 'destroy']);
-    });
+    
 
     // --- KHUSUS SISWA ---
     Route::middleware(['role:Siswa'])->group(function () {
@@ -112,7 +102,7 @@ Route::middleware(['auth'])->group(function () {
             return redirect()->route('buku.index');
         })->name('siswa.dashboard');
 
-        // Riwayat peminjaman pribadi siswa
+        // Riwayat peminjaman pribadi siswa (Pastikan rute ini nanti dibuka komentarnya untuk Soal 4)
         Route::get('/riwayat/{id}', [BukuController::class, 'riwayatPeminjaman'])->name('riwayat.saya');
     });
 });
