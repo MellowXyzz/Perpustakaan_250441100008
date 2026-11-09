@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Buku;
 
 class BukuController extends Controller
 {
+    use AuthorizesRequests;
     public function index(Request $request)
     {
         $buku = \App\Models\Buku::all();
@@ -53,24 +55,20 @@ class BukuController extends Controller
     }
 
     public function riwayatPeminjaman($id)
-    {
-        $user = Auth::user();
-        $userId = Auth::id();
+{
+    $peminjaman = \App\Models\Peminjaman::findOrFail($id);
 
-        // Sengaja dinonaktifkan untuk membuktikan celah IDOR (Soal 1.A4)
-        /*
-        if (($userId != $id) && !($user && method_exists($user, 'hasRole') && $user->hasRole('Admin'))) {
-            abort(403, 'Anda tidak diizinkan melihat riwayat peminjaman ini.');
-        }
-        */
+    // MENGGUNAKAN POLICY UNTUK MENUTUP CELAH IDOR (SOAL 4)
+    // Laravel akan otomatis mencocokkan dengan PeminjamanPolicy@view
+    $this->authorize('view', $peminjaman);
 
-        // Mengambil data peminjaman berdasarkan parameter $id URL tanpa validasi kepemilikan
-        $riwayat = \App\Models\Peminjaman::with(['buku', 'anggota'])
-            ->where('anggota_id', $id)
-            ->get();
+    // Atau jika ingin langsung mengambil data berdasarkan ID user yang login (alternatif aman):
+    $riwayat = \App\Models\Peminjaman::with(['buku', 'anggota'])
+        ->where('anggota_id', $id)
+        ->get();
 
-        return view('buku.riwayat', compact('riwayat'));
-    }
+    return view('buku.riwayat', compact('riwayat'));
+}
 
     public function store(Request $request)
     {

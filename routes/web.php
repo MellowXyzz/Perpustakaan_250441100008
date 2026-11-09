@@ -97,14 +97,13 @@ Route::middleware(['auth'])->group(function () {
 
     // --- KHUSUS SISWA ---
     Route::middleware(['role:Siswa'])->group(function () {
-        // Halaman dashboard siswa dialihkan langsung ke daftar buku atau halaman khusus siswa
-        Route::get('/siswa/dashboard', function() {
-            return redirect()->route('buku.index');
-        })->name('siswa.dashboard');
+    Route::get('/siswa/dashboard', function() {
+        return redirect()->route('buku.index');
+    })->name('siswa.dashboard');
 
-        // Riwayat peminjaman pribadi siswa (Pastikan rute ini nanti dibuka komentarnya untuk Soal 4)
-        Route::get('/riwayat/{id}', [BukuController::class, 'riwayatPeminjaman'])->name('riwayat.saya');
-    });
+    // AKTIFKAN KEMBALI RUTE INI:
+    Route::get('/riwayat/{id}', [BukuController::class, 'riwayatPeminjaman'])->name('riwayat.saya');
+});
 });
 
 require __DIR__.'/auth.php';
