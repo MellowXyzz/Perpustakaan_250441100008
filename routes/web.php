@@ -50,6 +50,10 @@ Route::middleware(['auth'])->group(function () {
     // Rute ajukan pinjam
     Route::post('/pinjam/{id}', [BukuController::class, 'storePinjam'])->name('buku.pinjam');
 
+    //rute5
+    // Route::get('/test-debug', function () {
+    //     throw new \RuntimeException("Uji coba tangkapan error debug.");
+    // });
    
     // PERUBAHAN UNTUK SOAL 3
     // =========================================================================
