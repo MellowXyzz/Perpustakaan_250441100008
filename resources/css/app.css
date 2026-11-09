@@ -1,0 +1,509 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: #173b70;
+    min-height: 100vh;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+.nav-container {
+    max-width: 1120px;
+    height: 82px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #173b70;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.brand-text strong {
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.brand-text span {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-top: 3px;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.nav-menu a {
+    position: relative;
+    color: #173b70;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 0;
+    transition: 0.2s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: #425eea;
+}
+
+.nav-menu a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #425eea;
+    border-radius: 10px;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+    min-height: 560px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(110deg, #edf2ff 0%, #f5f7ff 45%, #ffffff 75%);
+}
+
+.hero-container {
+    max-width: 1120px;
+    min-height: 560px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-text {
+    width: 55%;
+}
+
+.hero h1 {
+    color: #123d77;
+    font-size: 48px;
+    line-height: 1.18;
+    font-weight: 800;
+    margin-bottom: 22px;
+}
+
+.hero h1 span {
+    display: block;
+    color: #425eea;
+}
+
+.hero-description {
+    color: #475569;
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 560px;
+    margin-bottom: 12px;
+}
+
+.hero-info {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 25px;
+    background: #425eea;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 0 8px 20px rgba(66, 94, 234, 0.25);
+    transition: 0.25s;
+}
+
+.hero-button:hover {
+    background: #304bd1;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(66, 94, 234, 0.32);
+}
+
+.hero-button span {
+    font-size: 18px;
+}
+
+/* =========================
+   BOOK PAGE
+========================= */
+.books-page {
+    max-width: 1120px;
+    margin: auto;
+    padding: 65px 0;
+}
+
+.page-intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 45px;
+}
+
+.page-label {
+    color: #5267db;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.page-intro h1 {
+    color: #123d77;
+    font-size: 38px;
+    margin: 10px 0;
+}
+
+.page-intro p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================
+   BOOK GRID
+========================= */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+/* =========================
+   BOOK CARD
+========================= */
+.book-card {
+    background: white;
+    border: 1px solid #e7ebf3;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    transition: 0.25s;
+}
+
+.book-content {
+    flex: 1;
+}
+
+.book-category {
+    display: inline-block;
+    color: #5267db;
+    background: #eef1ff;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.book-content h3 {
+    color: #173b70;
+    font-size: 18px;
+    margin: 12px 0 6px;
+    line-height: 1.3;
+}
+
+.book-author {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.book-year {
+    color: #64748b;
+    font-size: 11px;
+    margin-bottom: 15px;
+}
+
+.book-year span {
+    margin-right: 5px;
+}
+
+.book-action {
+    margin-top: auto;
+}
+
+.detail-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #425eea;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.detail-button:hover {
+    color: #304bd1;
+}
+
+.detail-button span {
+    font-size: 16px;
+}
+
+/* =========================
+   DETAIL PAGE
+========================= */
+.detail-page {
+    max-width: 1120px;
+    margin: auto;
+    padding: 55px 0;
+}
+
+.back-button {
+    display: inline-block;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.back-button:hover {
+    color: #425eea;
+}
+
+.detail-container {
+    display: flex;
+    gap: 55px;
+    align-items: center;
+    padding: 50px;
+    border-radius: 18px;
+    background: linear-gradient(120deg, #f2f5ff, #ffffff);
+}
+
+.detail-information {
+    flex: 1;
+}
+
+.detail-information h1 {
+    color: #123d77;
+    font-size: 40px;
+    line-height: 1.2;
+    margin: 12px 0;
+}
+
+.detail-author {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.detail-author strong {
+    color: #425eea;
+}
+
+.detail-list {
+    display: flex;
+    gap: 45px;
+    margin: 30px 0;
+    padding: 22px 0;
+    border-top: 1px solid #dfe5f1;
+    border-bottom: 1px solid #dfe5f1;
+}
+
+.detail-list div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.detail-list span {
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+.detail-list strong {
+    color: #173b70;
+    font-size: 14px;
+}
+
+.detail-description {
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+/* NOT FOUND */
+.empty-book {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.empty-book h2 {
+    color: #173b70;
+    margin: 15px 0 8px;
+}
+
+.empty-book p {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background: #f7f9ff;
+    margin-top: 30px;
+}
+
+.footer-container {
+    max-width: 1120px;
+    margin: auto;
+    padding: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-brand {
+    color: #173b70;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.footer-container p {
+    color: #8a94a6;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.copyright {
+    margin: 0 !important;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+    .nav-container,
+    .hero-container,
+    .books-page,
+    .detail-page,
+    .footer-container {
+        width: 90%;
+    }
+
+    .nav-menu {
+        gap: 15px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 700px) {
+    .nav-container {
+        height: auto;
+        padding: 18px 0;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 40px 0;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page-intro {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .books-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-container {
+        flex-direction: column;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .detail-list {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+
