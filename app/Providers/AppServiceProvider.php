@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Peminjaman;
 use App\Policies\PeminjamanPolicy;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,8 +31,8 @@ class AppServiceProvider extends ServiceProvider
         // DAFTARKAN POLICY DI SINI:
          \Illuminate\Support\Facades\Gate::policy(Peminjaman::class, PeminjamanPolicy::class);
 
-         if ($this->app->environment('production')) {
-        \URL::forceScheme('https');
-}
+         if (config('app.env') !== 'local') {
+            URL::forceScheme('https');
+        }
     }
 }
