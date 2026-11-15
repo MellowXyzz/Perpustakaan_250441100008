@@ -29,5 +29,9 @@ class AppServiceProvider extends ServiceProvider
         });
         // DAFTARKAN POLICY DI SINI:
          \Illuminate\Support\Facades\Gate::policy(Peminjaman::class, PeminjamanPolicy::class);
+
+         if ($this->app->environment('production')) {
+        \URL::forceScheme('https');
+}
     }
 }
