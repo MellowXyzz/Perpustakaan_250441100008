@@ -25,20 +25,19 @@ class BukuController extends Controller
         return view('buku', compact('buku'));
     }
 
-    public function show($id)
-    {
-        $detailBuku = null;
+   public function show(Request $request, $id)
+{
+    $buku = Buku::findOrFail($id);
 
-        $bukus = Buku::with('kategori')->get();
-
-        foreach ($bukus as $data) {
-            if ($data->id == $id) {
-                $detailBuku = $data;
-            }
-        }
-
-        return view('buku-detail', ['buku' => $detailBuku]);
+    if ($request->wantsJson()) {
+        return response()->json([
+            'data' => $buku
+        ]);
     }
+
+    // Sesuaikan dengan nama view detail buku milik Anda
+    return view('buku', compact('buku'));
+}
 
     public function rekapBukuPerKategori()
     {

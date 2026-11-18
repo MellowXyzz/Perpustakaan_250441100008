@@ -66,7 +66,31 @@
                     </tr>
                 </thead>
                 <tbody id="tbody-buku">
-                    <tr><td colspan="5" style="text-align: center; padding: 20px; color: #6b7280;">Memuat data...</td></tr>
+                    @foreach(\App\Models\Buku::all() as $b)
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 12px; border: 1px solid #e5e7eb;">{{ $b->kategori_id }}</td>
+                            
+                            <!-- INI BAGIAN YANG DIUBAH UNTUK SOAL 2 -->
+                            <td style="padding: 12px; border: 1px solid #e5e7eb; font-weight: 500;">{{ $b->judul }}</td>
+                            
+                            <td style="padding: 12px; border: 1px solid #e5e7eb;">{{ $b->penulis }}</td>
+                            <td style="padding: 12px; border: 1px solid #e5e7eb;">{{ $b->tahun_terbit }}</td>
+                            <td style="padding: 12px; border: 1px solid #e5e7eb; text-align: center;">
+                                <button data-aksi="detail" data-id="{{ $b->id }}" style="background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-right: 4px;">Detail</button>
+                                
+                                @can('kelola data buku')
+                                    <button data-aksi="ubah" data-id="{{ $b->id }}" style="background: #f59e0b; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-right: 4px;">Ubah</button>
+                                    
+                                    <!-- UBAH BAGIAN INI UNTUK MENAMBAL CELAH A3 (CSRF) -->
+                                    <form action="{{ route('buku.destroy', $b->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Yakin ingin menghapus buku ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Hapus</button>
+                                    </form>
+                                @endcan
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -167,7 +191,7 @@
             await apiRequest(id ? `/${id}` : '', { method: id ? 'PUT' : 'POST', body });
             pesan(id ? 'Data buku berhasil diperbarui.' : 'Data buku berhasil ditambahkan.', 'green');
             isiForm(); 
-            await muatBuku();
+            setTimeout(() => window.location.reload(), 800);
         } catch (err) { tanganiError(err); }
     }
 
@@ -176,7 +200,7 @@
         try {
             await apiRequest(`/${id}`, { method: 'DELETE' });
             pesan('Data buku berhasil dihapus.', 'green');
-            await muatBuku();
+            //await muatBuku();
         } catch (err) { tanganiError(err); }
     }
 
@@ -195,12 +219,15 @@
             } else if (b.dataset.aksi === 'ubah') {
                 try {
                     const detail = await apiRequest(`/${b.dataset.id}`);
-                    isiForm(detail.data || detail); 
+                    if (!detail) {
+                        throw { message: 'Gagal mengambil data buku (respons bukan JSON).' };
+                    }
+                    isiForm(detail.data ?? detail); 
                 } catch(err) { tanganiError(err); }
             }
         };
 
-        await muatBuku();
+        //await muatBuku();
     });
 </script>
 @endpush

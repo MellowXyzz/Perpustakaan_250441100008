@@ -191,7 +191,7 @@
             await apiRequest(id ? `/${id}` : '', { method: id ? 'PUT' : 'POST', body });
             pesan(id ? 'Data buku berhasil diperbarui.' : 'Data buku berhasil ditambahkan.', 'green');
             isiForm(); 
-            //await muatBuku();
+            setTimeout(() => window.location.reload(), 800);
         } catch (err) { tanganiError(err); }
     }
 
@@ -219,7 +219,10 @@
             } else if (b.dataset.aksi === 'ubah') {
                 try {
                     const detail = await apiRequest(`/${b.dataset.id}`);
-                    isiForm(detail.data || detail); 
+                    if (!detail) {
+                        throw { message: 'Gagal mengambil data buku (respons bukan JSON).' };
+                    }
+                    isiForm(detail.data ?? detail); 
                 } catch(err) { tanganiError(err); }
             }
         };
