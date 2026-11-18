@@ -24,7 +24,7 @@
 
             <a href="{{ route('home') }}" class="brand">
                 <div class="brand-text">
-                    <strong>PerpustakaanKu</strong>
+                    <strong>PerpustakaanKu <br>250441100008</strong>
                 </div>
             </a>
 
